@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useEffect, useState, useRef } from "react";
+import "./App.css";
+import useSpeedGame from "./hooks/useSpeedGame";
 function App() {
+  const {
+    textAreaRef,
+    gameOn,
+    text,
+    handleChange,
+    handleClick,
+    timeRemaining,
+    countWords,
+  } = useSpeedGame();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <h1>How fast do you type?</h1>
+      <textarea
+        ref={textAreaRef}
+        disabled={!gameOn}
+        value={text}
+        onChange={handleChange}
+      />
+      <h4>Time reminaing: {timeRemaining}</h4>
+      <button disabled={gameOn} onClick={handleClick}>
+        START
+      </button>
+      <h1>Word count: {countWords}</h1>
     </div>
   );
 }
